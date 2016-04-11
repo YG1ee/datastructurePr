@@ -73,5 +73,6 @@ int main() {
 	printf("\n\npop 이후, 빈 상태의 스택");
 	printStack();
 
+	system("pause");
 	return 0;
 }
