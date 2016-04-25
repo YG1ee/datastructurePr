@@ -149,6 +149,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="doubleLinkedListDeque.cpp" />
     <ClCompile Include="linkedListQueue.cpp" />
     <ClCompile Include="queuePracticing.cpp" />
     <ClCompile Include="stdafx.cpp">
