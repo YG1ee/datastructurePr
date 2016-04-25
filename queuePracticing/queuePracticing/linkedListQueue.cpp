@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include <stdlib.h>
-#include <malloc.h>
 
 typedef char element;
 typedef struct QNode {
@@ -33,11 +32,11 @@ void enQueue(LQueueType *LQ, element item) {
 	QNode *newNode = (QNode *)malloc(sizeof(QNode));
 	newNode->data = item;
 	newNode->link = NULL;
-	if (LQ->front == NULL) {
+	if (LQ->front == NULL) { // 큐가 공백인 경우
 		LQ->front = newNode;
 		LQ->rear = newNode;
 	}
-	else {
+	else { // 큐가 공백이 아닌 경우
 		LQ->rear = newNode;
 		LQ->rear->link = newNode;
 	}
