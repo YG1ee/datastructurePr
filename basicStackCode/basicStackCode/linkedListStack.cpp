@@ -8,7 +8,7 @@ typedef struct stackNode {
 	stackNode *link;
 }stackNode;
 
-stackNode* top; // 스택의 top 노드를 지정하기 위한 포인터 top 선어
+stackNode* top; // 스택의 top 노드를 지정하기 위한 포인터 top 선언
 
 void push(element item) {
 	stackNode* temp = (stackNode *)malloc(sizeof(stackNode));
