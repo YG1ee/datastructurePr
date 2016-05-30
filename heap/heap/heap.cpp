@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include <stdlib.h>
+#include <time.h>
 #define MAX_ELEMENT 100
 
 typedef struct { // 힙에 대한 1차원 배열과 힙 원소의 갯수를 구조체로 묶어서 선언
@@ -58,13 +59,12 @@ void printHeap(heapType *h) { // 1차원 배열 힙의 내용을 출력하는 연산
 }
 
 int main() {
-	int i, n, item;
+	int i, j, m, n, item;
 	heapType *heap = createHeap();
-	insertHeap(heap, 10);
-	insertHeap(heap, 45);
-	insertHeap(heap, 19);
-	insertHeap(heap, 11);
-	insertHeap(heap, 96);
+	for (j = 0; j < 10; j++) {
+		m = rand() % 10 + 1;
+		insertHeap(heap, m);
+	}
 
 	printHeap(heap);
 
