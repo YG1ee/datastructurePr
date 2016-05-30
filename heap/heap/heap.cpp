@@ -21,7 +21,7 @@ heapType *createHeap() {
 	int i;
 	h->heap_size += 1;
 	i = h->heap_size;
-	while ((i != 1) && (item > h->heap[i / 2])) {
+	while ((i != 1) && (item < h->heap[i / 2])) {
 		h->heap[i] = h->heap[i / 2];
 		i /= 2;
 	}
@@ -37,9 +37,9 @@ int deleteHeap(heapType *h) { // 힙의 루트를 삭제하여 반환하는 연산
 	parent = 1;
 	child = 2;
 	while (child <= h->heap_size) {
-		if ((h->heap[child]) < h->heap[child + 1])
+		if ((h->heap[child]) > h->heap[child + 1])
 			child++;
-		if (temp >= h->heap[child])
+		if (temp <= h->heap[child])
 			break;
 		else { // temp < h->heap[child]
 			h->heap[parent] = h->heap[child];
@@ -61,7 +61,9 @@ void printHeap(heapType *h) { // 1차원 배열 힙의 내용을 출력하는 연산
 int main() {
 	int i, j, m, n, item;
 	heapType *heap = createHeap();
+	srand(time(NULL));
 	for (j = 0; j < 10; j++) {
+
 		m = rand() % 10 + 1;
 		insertHeap(heap, m);
 	}
