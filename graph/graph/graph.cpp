@@ -5,13 +5,13 @@
 #include "stdafx.h"
 #define MAX_VERTEX 30
 
-typedef struct graphNode {
+typedef struct graphNode { // 그래프에 대한 인접 리스트의 노드 구조 정의
 	int vertex;
 	struct graphNode* link;
 } graphNode;
 
 typedef struct graphType {
-	int n;
+	int n; // 정점의 갯수
 	graphNode* adjList_H[MAX_VERTEX]; // 그래프 정점에 대한 헤드 노드 배열
 } graphType;
 
