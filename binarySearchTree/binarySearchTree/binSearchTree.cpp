@@ -1,4 +1,4 @@
-﻿//  binarySearchTree
+//  binarySearchTree
 //
 //  Created by YGLee on 2016. 6. 10..
 //  Copyright © 2016년 YGLee. All rights reserved.
@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef int element;
+typedef char element;
 
 typedef struct treeNode {
 	element data;
@@ -115,28 +115,103 @@ void deleteNode(treeNode *tree, element key) {
 	// 삭제할 노드의 차수가 2인 경우
 	else {
 		// 왼쪽의 가장 큰 키 불러오기
-		succ = p;
-		p = p->left;
-		while (1) {
-			succ = p;
-			if (succ->right) {
-				succ = succ->right;
-			}
-			else if (succ->left) {
-				succ = p->left;
-			}
-			else { // (p->right == NULL) && (p->left == NULL)
-				break;
-			}
-		}
-		if (parent->left == p) {
-			parent->left;
-		}
+		succ_parent = succ;
+        succ = p->left;
+		while(succ->right) {
+			succ_parent = succ;
+            succ = succ->right;
+        }
+		if (succ_parent->left == succ) {
+			succ_parent->left = succ->left;
+		} else {
+            succ_parent->right = succ->left;
+        }
+        p->data = succ->data;
+        p = succ;
 	}
 	free(p);
 }
 
-int main() {
+treeNode *searchBST(treeNode *tree, element key) {
+    treeNode *p = tree;
+    while(p) {
+        if(key == p->data) {
+            break;
+        } else if(key < p->data) {
+            p = p->left;
+        } else {
+            p = p->right;
+        }
+    }
+    if(!p)
+        printf("\n 검색하려는 키는 이진 트리에 존재하지 않습니다!\n");
+    return p;
+}
 
-	return 0;
+void displayInorder(treeNode* tree) {
+    // 이진 탐색 트리를 중위 순회하면서 출력하는 연산
+    if(tree) {
+        displayInorder(tree->left);
+        print("%c_", tree->data);
+        displayInorder(tree->right);
+    }
+}
+
+void menu() {
+    printf("\n*------------------------*\n");
+    printf("\n\t1: 트리 출력");
+    printf("\n\t2: 문자 삽입");
+    printf("\n\t3: 문자 삭제");
+    printf("\n\t4: 문자 검색");
+    printf("\n*------------------------*\n");
+    printf("\n메뉴입력 >> ");
+}
+
+int main() {
+    treeNode* tree = NULL;
+    treeNode* foundNode = NULL;
+    char choice, key;
+
+    tree = insertNode(tree,'G'); // 트리 만들기
+    insertNode(tree,'I');
+    insertNode(tree,'H');
+    insertNode(tree,'D');
+    insertNode(tree,'B');
+    insertNode(tree,'M');
+    insertNode(tree,'N');
+    insertNode(tree,'A');
+    insertNode(tree,'J');
+    insertNode(tree,'J');
+    insertNode(tree,'E');
+    insertNode(tree,'Q');
+
+    while(1) {
+        menu();
+        choice = getchar(); getchar();
+        switch(choice) {
+            case 1: printf("\t[이진트리 출력] ");
+                    displayInorder(tree);
+                    printf("\n");
+                    break;
+            case 2: printf("삽입할 문자를 입력하세요: ");
+                    key = getchar(); getchar();
+                    deleteNode(tree, key);
+                    break;
+            case 3: pritnf("삭제할 문자를 입력하세요: ");
+                    key = getchar(); getchar();
+                    deleteNode(tree, key);
+                    break;
+            case 4: printf("찾을 문자를 입력하세요: ");
+                    key = getchar(); getchar();
+                    foundNode = searchBST(tree, key);
+                    if (foundNode) {
+                        printf("\n %c 를 찾았습니다! \n", foundNode->data);
+                    } else {
+                        printf("\n 문자를 찾지 못했습니다. \n");
+                    } break;
+            case 5: return 0;
+            default: printf("없는 메뉴입니다. 메뉴를 다시 선택하세요! \n");
+            break;
+        }
+    }
 }
