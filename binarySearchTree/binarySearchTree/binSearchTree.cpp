@@ -1,4 +1,8 @@
 //  binarySearchTree
+//
+//  Created by YGLee on 2016. 6. 10..
+//  Copyright Â© 2016ë…„ YGLee. All rights reserved.
+//
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,37 +28,44 @@ treeNode *searchTree(treeNode *tree, element key) {
 	}
 }
 
-treeNode *insertNode(treeNode *tree, element key) {
-	treeNode *newNode;
+void insertNode(treeNode *tree, element key) {
+	treeNode *p = tree, *q = NULL;
+	treeNode *newNode = (treeNode*)malloc(sizeof(treeNode));
+	while (p != NULL) {
+		if (key == p->data) {
+			return;
+		}
+		q = p;
+		if (key < p->data) {
+			p = p->left;
+		}
+		else { // key > p->data
+			p = p->right;
+		}
+	}
+	newNode->data = key;
+	newNode->left = NULL;
+	newNode->right = NULL;
 
 	if (tree == NULL) {
-		newNode = (treeNode*)malloc(sizeof(treeNode));
-		newNode->data = key;
-		newNode->left = NULL;
-		newNode->right = NULL;
-		return newNode;
+		tree = newNode;
 	}
-	else if (key < tree->data) {
-		tree->left = insertNode(tree->left, key);
+	else if (key < q->data) {
+		q->left = newNode;
 	}
-	else if (key > tree->data) {
-		tree->right = insertNode(tree->right, key);
+	else if (key > q->data) {
+		q->right = newNode;
 	}
-	else {
-		printf("\nÇØ´ç Å°´Â ÀÌ¹Ì ÀÌÁø Æ®¸®¿¡ ÀÖ½À´Ï´Ù!\n");
-	}
-
-	return tree;
 }
 
 void deleteNode(treeNode *tree, element key) {
 	treeNode *p = tree;
 	treeNode *parent, *child;
-	treeNode *succ=NULL, *succ_parent;
+	treeNode *succ, *succ_parent;
 
 	parent = NULL;
 
-	while ((p != NULL) && (p->data != key)) { // »èÁ¦ÇÒ ³ëµå À§Ä¡ Å½»ö
+	while ((p != NULL) && (p->data != key)) { // ì‚­ì œí•  ë…¸ë“œì˜ ìœ„ì¹˜ íƒìƒ‰
 		parent = p;
 		if (key < p->data) {
 			p = p->left;
@@ -65,11 +76,11 @@ void deleteNode(treeNode *tree, element key) {
 	}
 
 	if (p == NULL) {
-		printf("\n Áö¿ì·Á´Â Å°°¡ ÀÌÁø Æ®¸®¿¡ ¾ø½À´Ï´Ù!\n");
+		printf("\n ì§€ìš°ë ¤ëŠ” í‚¤ê°€ ì´ì§„ íŠ¸ë¦¬ì— ì—†ìŠµë‹ˆë‹¤!\n");
 		return;
 	}
 
-	// »èÁ¦ÇÒ ³ëµå°¡ ´Ü¸»ÀÎ °æ¿ì
+	// ì‚­ì œí•  ë…¸ë“œê°€ ë‹¨ë§ì¸ ê²½ìš° 
 	if ((p->left == NULL) && (p->right == NULL)) {
 		if (parent != NULL) {
 			if (parent->left == p) {
@@ -80,7 +91,7 @@ void deleteNode(treeNode *tree, element key) {
 			}
 		}
 	}
-	// »èÁ¦ÇÒ ³ëµåÀÇ Â÷¼ö°¡ 1ÀÎ °æ¿ì
+	// ì‚­ì œí•  ë…¸ë“œì˜ ì°¨ìˆ˜ê°€ 1ì¸ ê²½ìš°
 	else if ((p->left == NULL) || (p->right == NULL)) {
 		if (p->left != NULL) {
 			child = p->left;
@@ -97,114 +108,110 @@ void deleteNode(treeNode *tree, element key) {
 				parent->right = child;
 			}
 		}
-		else { // parent == NULL, Áï p°¡ rootÀÎ »óÈ²
-			tree = child; // root ÀÚ¸®¿¡ child¸¦ ³õÀ½.
+		else { // parent == NULL, ì¦‰ pê°€ rootì¸ ìƒí™©
+			tree = child; // root ìë¦¬ì— childë¥¼ ë†“ìŒ.
 		}
 	}
-	// »èÁ¦ÇÒ ³ëµåÀÇ Â÷¼ö°¡ 2ÀÎ °æ¿ì
+	// ì‚­ì œí•  ë…¸ë“œì˜ ì°¨ìˆ˜ê°€ 2ì¸ ê²½ìš°
 	else {
-		// ¿ŞÂÊÀÇ °¡Àå Å« Å° °¡Á®¿À±â
+		// ì™¼ìª½ì˜ ê°€ì¥ í° í‚¤ ë¶ˆëŸ¬ì˜¤ê¸°
 		succ_parent = succ;
-		succ = p->left;
-		while (succ->right) {
+        succ = p->left;
+		while(succ->right) {
 			succ_parent = succ;
-			succ = succ->right;
-		}
+            succ = succ->right;
+        }
 		if (succ_parent->left == succ) {
 			succ_parent->left = succ->left;
-		}
-		else {
-			succ_parent->right = succ->left;
-		}
-		p->data = succ->data;
-		p = succ;
+		} else {
+            succ_parent->right = succ->left;
+        }
+        p->data = succ->data;
+        p = succ;
 	}
 	free(p);
-	printf("\n %c Å°¸¦ ¼º°øÀûÀ¸·Î »èÁ¦Çß½À´Ï´Ù!\n", key);
 }
 
 treeNode *searchBST(treeNode *tree, element key) {
-	treeNode *p = tree;
-	while (p) {
-		if (key == p->data) {
-			break;
-		}
-		else if (key < p->data) {
-			p = p->left;
-		}
-		else {
-			p = p->right;
-		}
-	}
-	if (!p)
-		printf("\n Ã£´Â Å°°¡ ÀÌÁø Æ®¸®¿¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù!\n");
-	return p;
+    treeNode *p = tree;
+    while(p) {
+        if(key == p->data) {
+            break;
+        } else if(key < p->data) {
+            p = p->left;
+        } else {
+            p = p->right;
+        }
+    }
+    if(!p)
+        printf("\n ê²€ìƒ‰í•˜ë ¤ëŠ” í‚¤ëŠ” ì´ì§„ íŠ¸ë¦¬ì— ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤!\n");
+    return p;
 }
 
 void displayInorder(treeNode* tree) {
-	if (tree) {
-		displayInorder(tree->left);
-		printf("%c_", tree->data);
-		displayInorder(tree->right);
-	}
+    // ì´ì§„ íƒìƒ‰ íŠ¸ë¦¬ë¥¼ ì¤‘ìœ„ ìˆœíšŒí•˜ë©´ì„œ ì¶œë ¥í•˜ëŠ” ì—°ì‚°
+    if(tree) {
+        displayInorder(tree->left);
+        print("%c_", tree->data);
+        displayInorder(tree->right);
+    }
 }
 
 void menu() {
-	printf("\n*------------------------*\n");
-	printf("\n\t1: Æ®¸® Ãâ·Â");
-	printf("\n\t2: ¹®ÀÚ »ğÀÔ");
-	printf("\n\t3: ¹®ÀÚ »èÁ¦");
-	printf("\n\t4: ¹®ÀÚ °Ë»ö");
-	printf("\n\t5: Á¾·á");
-	printf("\n*------------------------*\n");
-	printf("\n¸Ş´º ÀÔ·Â >> ");
+    printf("\n*------------------------*\n");
+    printf("\n\t1: íŠ¸ë¦¬ ì¶œë ¥");
+    printf("\n\t2: ë¬¸ì ì‚½ì…");
+    printf("\n\t3: ë¬¸ì ì‚­ì œ");
+    printf("\n\t4: ë¬¸ì ê²€ìƒ‰");
+    printf("\n*------------------------*\n");
+    printf("\në©”ë‰´ì…ë ¥ >> ");
 }
 
 int main() {
-	treeNode* tree = NULL;
-	treeNode* foundNode = NULL;
-	char choice, key;
+    treeNode* tree = NULL;
+    treeNode* foundNode = NULL;
+    char choice, key;
 
-	tree = insertNode(tree, 'G'); // Æ®¸® ¸¸µé±â
-	insertNode(tree, 'I');
-	insertNode(tree, 'H');
-	insertNode(tree, 'D');
-	insertNode(tree, 'B');
-	insertNode(tree, 'M');
-	insertNode(tree, 'N');
-	insertNode(tree, 'A');
-	insertNode(tree, 'J');
-	insertNode(tree, 'E');
-	insertNode(tree, 'Q');
+    tree = insertNode(tree,'G'); // íŠ¸ë¦¬ ë§Œë“¤ê¸°
+    insertNode(tree,'I');
+    insertNode(tree,'H');
+    insertNode(tree,'D');
+    insertNode(tree,'B');
+    insertNode(tree,'M');
+    insertNode(tree,'N');
+    insertNode(tree,'A');
+    insertNode(tree,'J');
+    insertNode(tree,'J');
+    insertNode(tree,'E');
+    insertNode(tree,'Q');
 
-	while (1) {
-		menu();
-		choice = getchar(); getchar();
-		switch (choice) {
-		case '1': printf("\t[ÀÌÁø Æ®¸® Ãâ·Â] ");
-			displayInorder(tree);
-			printf("\n");
-			break;
-		case '2': printf("»ğÀÔÇÒ ¹®ÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ");
-			key = getchar(); getchar();
-			deleteNode(tree, key);
-			break;
-		case '3': printf("»èÁ¦ÇÒ ¹®ÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ");
-			key = getchar(); getchar();
-			deleteNode(tree, key);
-			break;
-		case '4': printf("Ã£À» ¹®ÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ");
-			key = getchar(); getchar();
-			foundNode = searchBST(tree, key);
-			if (foundNode) {
-				printf("\n %c Å°¸¦ Ã£¾Ò½À´Ï´Ù! \n", foundNode->data);
-			} else {
-				printf("\n ¹®ÀÚ¸¦ Ã£Áö ¸øÇß½À´Ï´Ù. \n");
-			} break;
-		case '5': return 0;
-		default: printf("¾ø´Â ¸Ş´ºÀÔ´Ï´Ù. ¸Ş´º¸¦ ´Ù½Ã ¼±ÅÃÇÏ¼¼¿ä! \n");
-			break;
-		}
-	}
-	return 0;
+    while(1) {
+        menu();
+        choice = getchar(); getchar();
+        switch(choice) {
+            case 1: printf("\t[ì´ì§„íŠ¸ë¦¬ ì¶œë ¥] ");
+                    displayInorder(tree);
+                    printf("\n");
+                    break;
+            case 2: printf("ì‚½ì…í•  ë¬¸ìë¥¼ ì…ë ¥í•˜ì„¸ìš”: ");
+                    key = getchar(); getchar();
+                    deleteNode(tree, key);
+                    break;
+            case 3: pritnf("ì‚­ì œí•  ë¬¸ìë¥¼ ì…ë ¥í•˜ì„¸ìš”: ");
+                    key = getchar(); getchar();
+                    deleteNode(tree, key);
+                    break;
+            case 4: printf("ì°¾ì„ ë¬¸ìë¥¼ ì…ë ¥í•˜ì„¸ìš”: ");
+                    key = getchar(); getchar();
+                    foundNode = searchBST(tree, key);
+                    if (foundNode) {
+                        printf("\n %c ë¥¼ ì°¾ì•˜ìŠµë‹ˆë‹¤! \n", foundNode->data);
+                    } else {
+                        printf("\n ë¬¸ìë¥¼ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤. \n");
+                    } break;
+            case 5: return 0;
+            default: printf("ì—†ëŠ” ë©”ë‰´ì…ë‹ˆë‹¤. ë©”ë‰´ë¥¼ ë‹¤ì‹œ ì„ íƒí•˜ì„¸ìš”! \n");
+            break;
+        }
+    }
 }
