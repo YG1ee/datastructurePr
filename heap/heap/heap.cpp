@@ -18,7 +18,7 @@ heapType *createHeap() {
 	return h;
 }
 
-	void insertHeap(heapType *h, int item) { // Èü¿¡ itemÀ» »ðÀÔÇÏ´Â ¿¬»ê
+void insertHeap(heapType *h, int item) { // Èü¿¡ itemÀ» »ðÀÔÇÏ´Â ¿¬»ê
 	int i;
 	h->heap_size += 1;
 	i = h->heap_size;
