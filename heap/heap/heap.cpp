@@ -78,17 +78,35 @@ int main() {
 		insertHeap(heap, m);
 	}*/
 	insertHeap(heap, 2);
-	insertHeap(heap, 4);
-	insertHeap(heap, 2);
-	insertHeap(heap, 4);
-	insertHeap(heap, 9);
-	insertHeap(heap, 8);
-	insertHeap(heap, 8);
-	insertHeap(heap, 10);
-	insertHeap(heap, 7);
-	insertHeap(heap, 9);
-
 	printHeap(heap);
+	printf("\n");
+	insertHeap(heap, 4);
+	printHeap(heap);
+	printf("\n");
+	insertHeap(heap, 2);
+	printHeap(heap);
+	printf("\n");
+	insertHeap(heap, 4);
+	printHeap(heap);
+	printf("\n");
+	insertHeap(heap, 9);
+	printHeap(heap);
+	printf("\n");
+	insertHeap(heap, 8);
+	printHeap(heap);
+	printf("\n");
+	insertHeap(heap, 8);
+	printHeap(heap);
+	printf("\n");
+	insertHeap(heap, 10);
+	printHeap(heap);
+	printf("\n");
+	insertHeap(heap, 7);
+	printHeap(heap);
+	printf("\n");
+	insertHeap(heap, 9);
+	printHeap(heap);
+	printf("\n");
 
 	n = heap->heapSize;
 	for (i = 0; i < n; i++) {
