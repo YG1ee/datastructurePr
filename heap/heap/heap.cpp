@@ -60,24 +60,53 @@ void printHeap(heapType *h) { // 1차원 배열 힙의 내용을 출력하는 연산
 }
 
 int main() {
-	int i, j, m, n, item;
-	heapType *heap = createHeap();
-	srand(time(NULL));
-	for (j = 0; j < 10; j++) {
+	int main() {
+		int i, /*j, m,*/ n, item;
+		heapType *heap = createHeap();
+		/*srand(time(NULL));
+		for (j = 0; j < 10; j++) {
 
 		m = rand() % 10 + 1;
 		insertHeap(heap, m);
+		}*/
+		insertHeap(heap, 2);
+		printHeap(heap);
+		printf("\n");
+		insertHeap(heap, 4);
+		printHeap(heap);
+		printf("\n");
+		insertHeap(heap, 2);
+		printHeap(heap);
+		printf("\n");
+		insertHeap(heap, 4);
+		printHeap(heap);
+		printf("\n");
+		insertHeap(heap, 9);
+		printHeap(heap);
+		printf("\n");
+		insertHeap(heap, 8);
+		printHeap(heap);
+		printf("\n");
+		insertHeap(heap, 8);
+		printHeap(heap);
+		printf("\n");
+		insertHeap(heap, 10);
+		printHeap(heap);
+		printf("\n");
+		insertHeap(heap, 7);
+		printHeap(heap);
+		printf("\n");
+		insertHeap(heap, 9);
+		printHeap(heap);
+		printf("\n");
+
+		n = heap->heapSize;
+		for (i = 0; i < n; i++) {
+			item = deleteHeap(heap);
+			if (i < n)
+				printf("\n delete: [%d] ", item);
+		}
+
+		system("pause");
+		return 0;
 	}
-
-	printHeap(heap);
-
-	n = heap->heap_size;
-	for (i = 1; i <= n; i++) {
-		item = deleteHeap(heap);
-		printf("\n delete: [%d] ", item);
-	}
-
-	system("pause");
-
-    return 0;
-}
