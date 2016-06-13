@@ -57,6 +57,7 @@ void printHeap(heapType *h) { // 1차원 배열 힙의 내용을 출력하는 연산
 	printf(" Heap: ");
 	for (i = 1; i <= h->heapSize; i++)
 		printf("[%d] ", h->heap[i]);
+	printf("\n");
 }
 
 int main() {
