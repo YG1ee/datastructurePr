@@ -1,20 +1,18 @@
-// binaryTree.cpp : Defines the entry point for the console application.
-//
-
-#include "stdafx.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef int dataType;
 
 int folderSize = 0;
 
-typedef struct treeNode { // ¿¬°á ÀÚ·á±¸Á¶·Î ±¸¼ºÇÏ±â À§ÇØ Æ®¸®ÀÇ ³ëµå Á¤ÀÇ
+typedef struct treeNode { // ì—°ê²° ìžë£Œêµ¬ì¡°ë¡œ êµ¬ì„±í•˜ê¸° ìœ„í•´ íŠ¸ë¦¬ì˜ ë…¸ë“œ ì •ì˜
 	dataType data;
 	struct treeNode* left;
 	struct treeNode* right;
 } treeNode;
 
 treeNode* makeRootNode(char data, treeNode* leftNode, treeNode* rightNode) {
-	// data¸¦ ·çÆ® ³ëµå·Î ÇÏ¿© ¿ÞÂÊ ¼­ºêÆ®¸®¿Í ¿À¸¥ÂÊ ¼­ºêÆ®¸®¸¦ ¿¬°áÇÏ´Â ¿¬»ê
+	// dataë¥¼ ë£¨íŠ¸ ë…¸ë“œë¡œ í•˜ì—¬ ì™¼ìª½ ì„œë¸ŒíŠ¸ë¦¬ì™€ ì˜¤ë¥¸ìª½ ì„œë¸ŒíŠ¸ë¦¬ë¥¼ ì—°ê²°í•˜ëŠ” ì—°ì‚°
 	treeNode* root = (treeNode*)malloc(sizeof(treeNode));
 	root->data = data;
 	root->left = leftNode;
@@ -70,6 +68,7 @@ int main() {
 	postorder(n1);
 	printf("size of the entire folder: %d", folderSize);
 
-	system("pause");
+	printf("\n");
+
 	return 0;
 }
