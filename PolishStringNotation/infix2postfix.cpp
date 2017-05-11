@@ -41,7 +41,7 @@ class stack {
     }
 };
 
-void stack::infix2postfix(char *strings) {
+void stack::in2post(char *strings) {
     element datum;
     stack newStack;
 
