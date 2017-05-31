@@ -177,7 +177,6 @@ int main() {
     bst1->insertNode(5);
     bst1->insertNode(12);
     bst1->deleteNode(15);
-    cout << bst1->root->data << " ";
     bst1->displayInorder(bst1->root);
     cout << endl;
     
