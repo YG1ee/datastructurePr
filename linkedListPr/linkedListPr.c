@@ -1,21 +1,18 @@
-// linkedListPr.cpp : Defines the entry point for the console application.
-//
-
-#include "stdafx.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 typedef char element;
 
-typedef struct ListNode { // ´Ü¼ø¿¬°á¸®½ºÆ®ÀÇ ³ëµå ±¸Á¶ Á¤ÀÇ
+typedef struct ListNode { // ë‹¨ìˆœì—°ê²°ë¦¬ìŠ¤íŠ¸ì˜ ë…¸ë“œ êµ¬ì¡° ì •ì˜
 	element data[4];
 	struct Node *link;
 } listNode;
 
-typedef struct { // ¸®½ºÆ®ÀÇ Çìµå ³ëµåÀÇ ±¸Á¶ Á¤ÀÇ
+typedef struct { // ë¦¬ìŠ¤íŠ¸ì˜ í—¤ë“œ ë…¸ë“œì˜ êµ¬ì¡° ì •ì˜
 	listNode* head;
 } linkedList_h;
 
-linkedList_h* createLinkedList_h(); // ÇÔ¼ö ¿øÇü ¼±¾ğ
+linkedList_h* createLinkedList_h(); // í•¨ìˆ˜ ì›í˜• ì„ ì–¸
 void freeLinkedList_h(linkedList_h*);
 void addLastNode(linkedList_h*, char*);
 void reverse(linkedList_h*);
@@ -24,8 +21,8 @@ void printList(linkedList_h*);
 
 linkedList_h* createLinkedList_h() {
 	linkedList_h* L;
-	L = (linkedList_h *)malloc(sizeof(linkedList_h)); // Çìµå ³ëµå ÇÒ´ç
-	L->head = NULL; // °ø¹é ¸®½ºÆ®ÀÌ¹Ç·Î NULL ¼³Á¤
+	L = (linkedList_h *)malloc(sizeof(linkedList_h)); // í—¤ë“œ ë…¸ë“œ í• ë‹¹
+	L->head = NULL; // ê³µë°± ë¦¬ìŠ¤íŠ¸ì´ë¯€ë¡œ NULL ì„¤ì •
 	return L;
 }
 
