@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 typedef int element;
@@ -8,7 +8,7 @@ typedef struct stackNode {
 	stackNode *link;
 }stackNode;
 
-stackNode* top; // ½ºÅÃÀÇ top ³ëµå¸¦ ÁöÁ¤ÇÏ±â À§ÇÑ Æ÷ÀÎÅÍ top ¼±¾ğ
+stackNode* top; // ìŠ¤íƒì˜ top ë…¸ë“œë¥¼ ì§€ì •í•˜ê¸° ìœ„í•œ í¬ì¸í„° top ì„ ì–¸
 
 void push(element item) {
 	stackNode* temp = (stackNode *)malloc(sizeof(stackNode));
