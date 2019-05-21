@@ -97,20 +97,20 @@ public:
                     targetNode = child;
         }
         // 삭제할 노드의 차수가 2인 경우
-        else { // 삭제되는 노드는 succ_parent, 삭제된 노드 자리에 들어갈 후계자는 succ
-            succ_parent = targetNode;
+        else { // 삭제되는 노드는 parent, 삭제된 노드 자리에 들어갈 후계자는 succ
+            succ_parent = parent = targetNode;
             succ = targetNode->left;
             while (succ->right) {
                 succ_parent = succ;
                 succ = succ->right;
             }
-            if (succ_parent->left == succ) {
-                succ_parent->left = succ->left;
-                succ_parent->data = succ->data;
+            if (parent->left == succ) {
+                parent->left = succ->left;
+                parent->data = succ->data;
             }
             else {
                 succ_parent->right = succ->left;
-                succ_parent->data = succ->data;
+                parent->data = succ->data;
             }
         }
         delete succ;
@@ -159,23 +159,17 @@ public:
 int main() {
     BST<int> *bst1 = new BST<int>();
 
-    int input1 = 5;
-    int input2 = 3;
-    int input3 = 9;
-    int input4 = 1;
-    int input5 = 4;
-    bst1->insertNode(input1);
-    bst1->insertNode(input2);
-    bst1->insertNode(input3);
-    bst1->insertNode(input4);
-    bst1->insertNode(input5);
-    bst1->insertNode(20);
-    bst1->insertNode(15);
-    bst1->insertNode(12);
-    bst1->insertNode(16);
+    bst1->insertNode(100);
+    bst1->insertNode(50);
+    bst1->insertNode(120);
+    bst1->insertNode(40);
+    bst1->insertNode(70);
+    bst1->insertNode(60);
+    bst1->insertNode(90);
+    bst1->insertNode(65);
+    bst1->insertNode(63);
     bst1->insertNode(17);
-    bst1->insertNode(5);
-    bst1->insertNode(12);
+    bst1->deleteNode(70);
     bst1->deleteNode(15);
     bst1->displayInorder(bst1->root);
     cout << endl;
