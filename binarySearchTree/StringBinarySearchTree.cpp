@@ -1,5 +1,6 @@
 // 문자열을 키값으로 하는 이진 탐색 트리 코드
 #include <iostream>
+#include <cstring>
 #define MAX_ARG 100
 using namespace std;
 
