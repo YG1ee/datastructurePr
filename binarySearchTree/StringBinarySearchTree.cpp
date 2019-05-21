@@ -57,7 +57,7 @@ public:
                 parent->right = newNode;
         }
     }
-    
+    /* 노드 삭제 미구현
     void deleteNode(char *strung) {
         succ = NULL;
         parent = NULL;
@@ -94,25 +94,26 @@ public:
                     targetNode = child;
         }
         // 삭제할 노드의 차수가 2인 경우
-        else { // 삭제되는 노드는 succ_parent, 삭제된 노드 자리에 들어갈 후계자는 succ
-            succ_parent = targetNode;
+        else { // 삭제되는 노드는 parent, 삭제된 노드 자리에 들어갈 후계자는 succ
+            succ_parent = parent = targetNode;
             succ = targetNode->left;
             while (succ->right) {
                 succ_parent = succ;
                 succ = succ->right;
             }
-            if (succ_parent->left == succ) {
-                succ_parent->left = succ->left;
-                succ_parent->string = succ->string;
+            if (parent->left == succ) {
+                parent->left = succ->left;
+                parent->string = succ->string;
             }
             else {
                 succ_parent->right = succ->left;
-                succ_parent->string = succ->string;
+                parent->string = succ->string;
             }
         }
         delete succ;
         cout << strung << "키를 성공적으로 삭제했습니다!" << endl;
     }
+    */
     
     Node* searchBST(char *strung) {
         search_ptr = root;
@@ -153,7 +154,7 @@ int main() {
     argv[argc++] = strtok(input, delim);
     while ((argv[argc++] = strtok(NULL,delim)));
     
-    for (int i = 0; i < argc-2; i += 1)
+    for (int i = 0; i < argc-1; i += 1)
         bst1->insertNode(argv[i]);
     
     bst1->displayInorder(bst1->root);
